@@ -1,0 +1,70 @@
+<div class="filtros-container">
+  <!-- Busca -->
+  <div class="form-group search-group">
+    <label>Buscar</label>
+    <input 
+      type="text" 
+      [ngModel]="filtrosAtual.search" 
+      (ngModelChange)="onSearchChange($event)"
+      placeholder="Histórico, documento..."
+      class="form-control"
+    >
+  </div>
+
+  <!-- Tipo -->
+  <div class="form-group">
+    <label>Tipo</label>
+    <select 
+      [(ngModel)]="filtrosAtual.tipo" 
+      (change)="onFilterChange()"
+      class="form-control"
+    >
+      <option [ngValue]="undefined">Todos</option>
+      <option [ngValue]="LancamentoTipo.DEBITO">Débito</option>
+      <option [ngValue]="LancamentoTipo.CREDITO">Crédito</option>
+    </select>
+  </div>
+
+  <!-- Status -->
+  <div class="form-group">
+    <label>Status</label>
+    <select 
+      [(ngModel)]="filtrosAtual.status" 
+      (change)="onFilterChange()"
+      class="form-control"
+    >
+      <option [ngValue]="undefined">Todos</option>
+      <option [ngValue]="LancamentoStatus.PROVISORIO">Provisório</option>
+      <option [ngValue]="LancamentoStatus.CONFIRMADO">Confirmado</option>
+      <option [ngValue]="LancamentoStatus.CANCELADO">Cancelado</option>
+    </select>
+  </div>
+
+  <!-- Periodo -->
+  <div class="form-group">
+    <label>Data Início</label>
+    <input 
+      type="date" 
+      [(ngModel)]="filtrosAtual.dataInicio" 
+      (change)="onFilterChange()"
+      class="form-control"
+    >
+  </div>
+
+  <div class="form-group">
+    <label>Data Fim</label>
+    <input 
+      type="date" 
+      [(ngModel)]="filtrosAtual.dataFim" 
+      (change)="onFilterChange()"
+      class="form-control"
+    >
+  </div>
+
+  <!-- Ações -->
+  <div class="actions-group">
+    <button class="btn-clear" (click)="limparFiltros()">
+      Limpar Filtros
+    </button>
+  </div>
+</div>

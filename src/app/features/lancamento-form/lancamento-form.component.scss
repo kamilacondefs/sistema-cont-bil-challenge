@@ -1,0 +1,108 @@
+.page-container {
+  padding: 40px 20px;
+  background-color: #f7fafc;
+  min-height: calc(100vh - 64px);
+  display: flex;
+  justify-content: center;
+}
+
+.form-card-container {
+  width: 100%;
+  max-width: 600px;
+}
+
+.form-card {
+  background: white;
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.form-header {
+  margin-bottom: 30px;
+  text-align: center;
+
+  h2 {
+    margin: 0;
+    color: #1a365d;
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  .subtitle {
+    display: block;
+    margin-top: 4px;
+    color: #718096;
+    font-size: 14px;
+  }
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.radio-group-container {
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+
+  .radio-label {
+    color: rgba(0,0,0,0.6);
+    font-size: 16px; // Match mat-label roughly
+    margin-bottom: 8px;
+  }
+
+  mat-radio-group {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .error-msg {
+    color: #f44336; // Material error color
+    font-size: 12px; // Match mat-error size
+    margin-top: 4px;
+    margin-left: 16px; // Indent slightly
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+
+  button {
+    min-width: 100px;
+  }
+}
+
+/* Loading State */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+  color: #718096;
+}
+
+.spinner {
+  border: 4px solid #e2e8f0;
+  border-top: 4px solid #3182ce;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Override Material styles for custom requirements if needed */
+::ng-deep .mat-mdc-form-field-error {
+  margin-top: 0 !important;
+}

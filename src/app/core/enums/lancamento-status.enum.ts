@@ -1,0 +1,6 @@
+export enum LancamentoStatus {
+  PROVISORIO = 'PROVISORIO',
+  CONFIRMADO = 'CONFIRMADO',
+  CANCELADO = 'CANCELADO',
+  TODOS = 'TODOS'
+}

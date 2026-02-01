@@ -1,0 +1,104 @@
+<div class="page-container">
+  <div class="form-card-container">
+    
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-state">
+      <div class="spinner"></div>
+      <p>Carregando dados...</p>
+    </div>
+
+    <!-- Form Content -->
+    <div class="form-card" *ngIf="!loading">
+      <div class="form-header">
+        <h2>{{ isEditMode ? 'Editando Lançamento' : 'Novo Lançamento' }}</h2>
+        <span *ngIf="isEditMode" class="subtitle">#{{ lancamentoId }}</span>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        
+        <!-- Data -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Data</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="data" required>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="form.get('data')?.hasError('required')">Data é obrigatória</mat-error>
+          <mat-error *ngIf="form.get('data')?.hasError('futureDate')">Data não pode ser futura</mat-error>
+        </mat-form-field>
+
+        <!-- Tipo -->
+        <div class="radio-group-container">
+          <label class="radio-label">Tipo *</label>
+          <mat-radio-group formControlName="tipo" color="primary">
+            <mat-radio-button [value]="LancamentoTipo.DEBITO">Débito</mat-radio-button>
+            <mat-radio-button [value]="LancamentoTipo.CREDITO">Crédito</mat-radio-button>
+          </mat-radio-group>
+          <div class="error-msg" *ngIf="form.get('tipo')?.touched && form.get('tipo')?.invalid">
+            Selecione o tipo
+          </div>
+        </div>
+
+        <!-- Conta Contábil -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Conta Contábil</mat-label>
+          <input type="text"
+                 matInput
+                 formControlName="conta"
+                 [matAutocomplete]="auto"
+                 required>
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayConta">
+            <mat-option *ngFor="let conta of filteredContas | async" [value]="conta">
+              {{conta.codigo}} - {{conta.descricao}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error *ngIf="form.get('conta')?.hasError('required')">Conta é obrigatória</mat-error>
+          <mat-error *ngIf="form.get('conta')?.hasError('requireSelection')">Selecione uma conta da lista</mat-error>
+        </mat-form-field>
+
+        <!-- Valor -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Valor</mat-label>
+          <span matTextPrefix>R$&nbsp;</span>
+          <input matInput type="number" formControlName="valor" min="0.01" required>
+          <mat-error *ngIf="form.get('valor')?.hasError('required')">Valor é obrigatório</mat-error>
+          <mat-error *ngIf="form.get('valor')?.hasError('min')">Valor deve ser maior que zero</mat-error>
+        </mat-form-field>
+
+        <!-- Histórico -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Histórico</mat-label>
+          <textarea matInput formControlName="historico" rows="3" required></textarea>
+          <mat-error *ngIf="form.get('historico')?.hasError('required')">Histórico é obrigatório</mat-error>
+          <mat-error *ngIf="form.get('historico')?.hasError('minlength')">Mínimo de 5 caracteres</mat-error>
+        </mat-form-field>
+
+        <!-- Documento -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Documento</mat-label>
+          <input matInput formControlName="documento">
+        </mat-form-field>
+
+        <!-- Status -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status" required>
+            <mat-option [value]="LancamentoStatus.PROVISORIO">Provisório</mat-option>
+            <mat-option [value]="LancamentoStatus.CONFIRMADO">Confirmado</mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('status')?.hasError('required')">Status é obrigatório</mat-error>
+        </mat-form-field>
+
+        <!-- Actions -->
+        <div class="form-actions">
+          <button type="button" mat-stroked-button (click)="onCancel()" [disabled]="saving">
+            Cancelar
+          </button>
+          <button type="submit" mat-flat-button color="primary" [disabled]="form.invalid || saving">
+            {{ saving ? 'Salvando...' : (isEditMode ? 'Salvar Alterações' : 'Salvar') }}
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

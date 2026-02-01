@@ -1,0 +1,119 @@
+<div class="table-container">
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Carregando lançamentos...</p>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading && lancamentos.length === 0" class="empty-state">
+    <p>Nenhum lançamento encontrado.</p>
+  </div>
+
+  <!-- Table -->
+  <div class="table-responsive" *ngIf="!loading && lancamentos.length > 0">
+    <table>
+      <thead>
+        <tr>
+          <th (click)="onSort('data')" [class.sortable]="true">
+            Data {{ getSortIcon('data') }}
+          </th>
+          <th (click)="onSort('tipo')" [class.sortable]="true">
+            Tipo {{ getSortIcon('tipo') }}
+          </th>
+          <th>Conta</th>
+          <th (click)="onSort('valor')" [class.sortable]="true">
+            Valor {{ getSortIcon('valor') }}
+          </th>
+          <th (click)="onSort('status')" [class.sortable]="true">
+            Status {{ getSortIcon('status') }}
+          </th>
+          <th class="actions-col">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of lancamentos">
+          <td>{{ item.data | date:'dd/MM/yyyy' }}</td>
+          <td>
+            <span class="badge" [ngClass]="{
+              'debito': item.tipo === LancamentoTipo.DEBITO,
+              'credito': item.tipo === LancamentoTipo.CREDITO
+            }">
+              {{ item.tipo === LancamentoTipo.DEBITO ? 'Débito' : 'Crédito' }}
+            </span>
+          </td>
+          <td>
+            <div class="conta-info">
+              <span class="conta-codigo">{{ item.conta.codigo }}</span>
+              <span class="conta-desc">{{ item.conta.descricao }}</span>
+            </div>
+          </td>
+          <td class="valor-col">
+            {{ item.valor | currencyFormat }}
+          </td>
+          <td>
+            <span class="status-badge" [ngClass]="item.status.toLowerCase()">
+              {{ item.status }}
+            </span>
+          </td>
+          <td class="actions-col">
+            <button class="btn-icon edit" (click)="onEdit(item.id)" title="Editar">
+              ✎
+            </button>
+            <button class="btn-icon delete" (click)="onDeleteClick(item.id)" title="Excluir">
+              🗑
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination" *ngIf="pagination && !loading && lancamentos.length > 0">
+    <div class="pagination-info">
+      Página {{ pagination.page }} de {{ pagination.totalPages }} 
+      <span class="pagination-total">(Total: {{ pagination.total }} lançamentos)</span>
+    </div>
+    
+    <div class="pagination-controls">
+      <button 
+        [disabled]="!pagination.hasPrev" 
+        (click)="onPageChange(1)"
+        title="Primeira página"
+      >«</button>
+      <button 
+        [disabled]="!pagination.hasPrev" 
+        (click)="onPageChange(pagination.page - 1)"
+        title="Página anterior"
+      >‹</button>
+      
+      <span class="current-page">{{ pagination.page }}</span>
+      
+      <button 
+        [disabled]="!pagination.hasNext" 
+        (click)="onPageChange(pagination.page + 1)"
+        title="Página próxima"
+      >›</button>
+      <button 
+        [disabled]="!pagination.hasNext" 
+        (click)="onPageChange(pagination.totalPages)"
+        title="Última página"
+      >»</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal-overlay" *ngIf="showDeleteModal">
+  <div class="modal">
+    <div class="modal-header">Confirmar Exclusão</div>
+    <div class="modal-body">
+      Tem certeza que deseja excluir este lançamento? Esta ação não pode ser desfeita.
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" (click)="closeModal()">Cancelar</button>
+      <button class="btn-confirm" (click)="confirmDelete()">Excluir</button>
+    </div>
+  </div>
+</div>

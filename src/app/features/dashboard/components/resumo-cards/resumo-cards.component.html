@@ -1,0 +1,46 @@
+<div class="cards-grid">
+  <!-- Card 1: Total Débitos -->
+  <div class="card" [class.loading]="!balancete">
+    <ng-container *ngIf="balancete; else loader">
+      <div class="card-header">Total de Débitos</div>
+      <div class="card-value debito">
+        {{ balancete.totalDebitos | currencyFormat }}
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- Card 2: Total Créditos -->
+  <div class="card" [class.loading]="!balancete">
+    <ng-container *ngIf="balancete; else loader">
+      <div class="card-header">Total de Créditos</div>
+      <div class="card-value credito">
+        {{ balancete.totalCreditos | currencyFormat }}
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- Card 3: Saldo -->
+  <div class="card" [class.loading]="!balancete">
+    <ng-container *ngIf="balancete; else loader">
+      <div class="card-header">Saldo</div>
+      <div class="card-value" [ngClass]="{'credito': balancete.saldo >= 0, 'debito': balancete.saldo < 0}">
+        {{ balancete.saldo | currencyFormat }}
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- Card 4: Quantidade -->
+  <div class="card" [class.loading]="!balancete">
+    <ng-container *ngIf="balancete; else loader">
+      <div class="card-header">Lançamentos</div>
+      <div class="card-value neutral">
+        {{ balancete.count }}
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #loader>
+  <div class="skeleton-header"></div>
+  <div class="skeleton-value"></div>
+</ng-template>
