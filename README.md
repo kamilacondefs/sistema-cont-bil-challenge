@@ -5,10 +5,10 @@
  ## 🎨 Design
 
 **Protótipo Navegável:**
-[Link do Protótipo]([cole-seu-link-aqui](https://www.figma.com/proto/I3ifhKmsgjtV4jfuL4FKrg/Desafio-T%C3%A9cnico---Bip-Brasil--KAMILA-CONDE-?node-id=1-855&t=L7UcmImK0DXNQErx-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A786))
+[Link do Protótipo](https://www.figma.com/proto/I3ifhKmsgjtV4jfuL4FKrg/Desafio-T%C3%A9cnico---Bip-Brasil--KAMILA-CONDE-?node-id=1-855&t=L7UcmImK0DXNQErx-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A786)
 
 **Link do arquivo no Figma Design:**
-[Link do Design]([cole-seu-link-aqui](https://www.figma.com/design/I3ifhKmsgjtV4jfuL4FKrg/Desafio-T%C3%A9cnico---Bip-Brasil--KAMILA-CONDE-?node-id=2-753&t=9mn3iWwFZdmX3ael-1))
+[Link do Design](https://www.figma.com/design/I3ifhKmsgjtV4jfuL4FKrg/Desafio-T%C3%A9cnico---Bip-Brasil--KAMILA-CONDE-?node-id=2-753&t=9mn3iWwFZdmX3ael-1)
 
 Detalhes sobre as decisões de design estão documentados em `docs/figma-handoff.md`.
 
